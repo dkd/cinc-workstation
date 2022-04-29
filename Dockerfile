@@ -21,7 +21,11 @@ RUN add-apt-repository \
     $(lsb_release -cs) \
     stable"
 
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+RUN apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
 RUN apt-get update && \
-    apt-get install -y docker-ce-cli && \
+    apt-get install -y docker-ce-cli virtualbox vagrant && \
     apt-get clean && apt-get autoclean && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/*log /var/log/apt/* /var/lib/dpkg/*-old /var/cache/debconf/*-old
+RUN vagrant plugin install vagrant-cachier
