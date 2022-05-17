@@ -6,6 +6,8 @@ Following tools additionally to [official image](https://hub.docker.com/r/cincpr
 * `overcommit`
 * `shellcheck`
 * `docker-cli`
+* `virtualbox`
+* `vagrant`
 
 ### Dockerfile
 ```
@@ -32,7 +34,7 @@ RUN add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
-
+  
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 RUN apt-add-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
@@ -58,7 +60,7 @@ RUN apt-get update && \
   /var/log/apt/* \
   /var/lib/dpkg/*-old \
   /var/cache/debconf/*-old
-
+  
 RUN vagrant plugin install vagrant-cachier
 ```
 
