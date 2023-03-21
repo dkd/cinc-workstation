@@ -32,7 +32,6 @@ RUN apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(ls
 RUN apt-get update && \
     apt-get install -y \
   linux-headers-generic \
-  linux-headers-5.4.0-90-generic \
   docker-ce-cli \
   virtualbox-6.1 \
   vagrant \
