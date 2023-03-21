@@ -1,4 +1,4 @@
-FROM cincproject/workstation:22.6.973
+FROM cincproject/workstation:23.3.1030
 LABEL maintainer="Ivan Golman <ivan.golman@dkd.de>, dkd Internet Service GmbH."
 
 RUN chef gem install kitchen-docker rubocop overcommit
@@ -21,7 +21,7 @@ RUN add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
-  
+
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 RUN apt-add-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
@@ -47,5 +47,5 @@ RUN apt-get update && \
   /var/log/apt/* \
   /var/lib/dpkg/*-old \
   /var/cache/debconf/*-old
-  
+
 RUN vagrant plugin install vagrant-cachier
