@@ -11,7 +11,7 @@ Following tools additionally to [official image](https://hub.docker.com/r/cincpr
 
 ### Dockerfile
 ```
-FROM cincproject/workstation:21.10.640
+FROM cincproject/workstation:24.6.1066
 LABEL maintainer="Ivan Golman <ivan.golman@dkd.de>, dkd Internet Service GmbH."
 
 RUN chef gem install kitchen-docker rubocop overcommit
