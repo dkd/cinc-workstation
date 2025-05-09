@@ -1,4 +1,4 @@
-FROM cincproject/workstation:24.8.1068
+FROM cincproject/workstation:24.8.1068@sha256:acd8a19a51e7eedbc308388bef99ac8439de29596a457b23b92429d2be0ee2fa
 LABEL maintainer="Ivan Golman <ivan.golman@dkd.de>, dkd Internet Service GmbH."
 
 RUN chef gem install kitchen-docker rubocop overcommit
