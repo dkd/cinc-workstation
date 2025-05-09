@@ -1,4 +1,4 @@
-FROM cincproject/workstation:24.6.1066
+FROM cincproject/workstation:24.8.1068
 LABEL maintainer="Ivan Golman <ivan.golman@dkd.de>, dkd Internet Service GmbH."
 
 RUN chef gem install kitchen-docker rubocop overcommit
@@ -33,7 +33,7 @@ RUN apt-get update && \
     apt-get install -y \
   linux-headers-generic \
   docker-ce-cli \
-  virtualbox-6.1 \
+  virtualbox-7.1 \
   vagrant \
   && \
     apt-get clean && \
