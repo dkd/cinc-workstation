@@ -16,35 +16,37 @@ ARG scversion="stable"
 RUN wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | \
     tar -xJv && cp "shellcheck-${scversion}/shellcheck" /usr/bin/
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-RUN add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
+# Docker
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+    > /etc/apt/sources.list.d/docker.list
 
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-RUN wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
-RUN apt-add-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+# VirtualBox
+RUN wget -qO- https://www.virtualbox.org/download/oracle_vbox_2016.asc | gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" \
+    > /etc/apt/sources.list.d/virtualbox.list
 
-RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
-RUN apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+# HashiCorp (Vagrant)
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/hashicorp.list
 
 RUN apt-get update && \
     apt-get install -y \
-  linux-headers-generic \
-  docker-ce-cli \
-  virtualbox-7.1 \
-  vagrant \
-  && \
+    linux-headers-generic \
+    docker-ce-cli \
+    virtualbox-7.1 \
+    vagrant \
+    && \
     apt-get clean && \
-  apt-get autoclean && \
-  apt-get autoremove -y && \
+    apt-get autoclean && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* \
-  /tmp/* \
-  /var/tmp/* \
-  /var/log/*log \
-  /var/log/apt/* \
-  /var/lib/dpkg/*-old \
-  /var/cache/debconf/*-old
+    /tmp/* \
+    /var/tmp/* \
+    /var/log/*log \
+    /var/log/apt/* \
+    /var/lib/dpkg/*-old \
+    /var/cache/debconf/*-old
 
 RUN vagrant plugin install vagrant-cachier
